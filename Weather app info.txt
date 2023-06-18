@@ -1,0 +1,72 @@
+Making HTTP Request for API
+Storing API Data to our App
+Code Design
+
+First Step
+Transaction of API
+Email
+Open postman
+
+Extensions
+pubspec Assis
+Tabnine
+
+Dependencies
+
+Geolocator: Will get current lattitude and longitude
+flutter pub add geolocator
+
+Geocoding
+flutter pub add geocoding
+
+Sleek Circular Slider
+flutter pub add sleek_circular_slider
+
+http
+flutter pub add http
+
+GetX statemanager
+flutter pub add get
+
+intl
+flutter pub add intl
+
+
+android/app/build.gradle
+<code>
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+*
+def flutterRoot = localProperties.getProperty('flutter.sdk')
+if (flutterRoot == null) {
+    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+}
+*
+
+note: GradleException replace with FileNotFoundException
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+<code>
+
+change compileSdkVersion to 33
+
+android/app/src/main
+AndroidManifest.xml 
+
+add one of the following two lines as direct children of the <manifest> tag
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
