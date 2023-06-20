@@ -1,5 +1,7 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:weather_application/api/fetch_weather.dart';
+import 'package:weather_application/model/weather_data.dart';
 
 class GlobalController extends GetxController{
   
@@ -7,16 +9,24 @@ class GlobalController extends GetxController{
   final RxBool _isLoading = true.obs;
   final RxDouble _lattitude = 0.0.obs;
   final RxDouble _longitude = 0.0.obs;
+  final RxInt _currentIndex = 0.obs;
   
   // functions
   RxBool checkLoading() => _isLoading;
   RxDouble getLattitude() => _lattitude;
   RxDouble getLongitude() => _longitude;
+  WeatherData getWeatherData() => weatherData.value;
+  RxInt getIndex() => _currentIndex;
+
+
+  final weatherData = WeatherData().obs;
 
   @override
   void onInit() {
     if(_isLoading.isTrue){
       getLocation();
+    }else{
+      getIndex();
     }
     super.onInit();
   }
@@ -52,8 +62,13 @@ class GlobalController extends GetxController{
     return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then((value){
       _lattitude.value = value.latitude;
       _longitude.value = value.longitude;
-      _isLoading.value = false;
-    });
 
+      // Calling our Weather API
+      return FetchWeatherAPI().processData(value.latitude, value.longitude).then((value){
+        weatherData.value = value;
+        _isLoading.value = false;
+      });
+    });
   }
+
 }

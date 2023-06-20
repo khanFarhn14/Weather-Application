@@ -1,7 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:weather_application/controllers/global_controller.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:weather_application/widgets/style.dart';
 
 class Header extends StatefulWidget {
   const Header({super.key});
@@ -12,7 +14,9 @@ class Header extends StatefulWidget {
 
 class _HeaderState extends State<Header> {
   String city = "";
+  String state = "";
   final GlobalController controller = Get.put(GlobalController(), permanent: true);
+  String date = DateFormat("yMMMd").format(DateTime.now());
 
   @override
   void initState() {
@@ -25,6 +29,7 @@ class _HeaderState extends State<Header> {
     Placemark place = placemark[0];
     setState(() {
       city = place.locality!;
+      state = place.country!;
     });
   }
 
@@ -32,8 +37,9 @@ class _HeaderState extends State<Header> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(city),
-        
+        Text("$city, $state",style: regular()),
+        const SizedBox(height: 4,),
+        Text(date, style: semiRegular()),
       ],
     );
   }

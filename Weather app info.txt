@@ -10,6 +10,7 @@ Open postman
 Extensions
 pubspec Assis
 Tabnine
+json to dart model by hirantha
 
 Dependencies
 
@@ -30,6 +31,12 @@ flutter pub add get
 
 intl
 flutter pub add intl
+
+flutter_screenutil
+flutter pub add flutter_screenutil
+
+figma_squircle
+flutter pub add figma_squircle
 
 
 android/app/build.gradle

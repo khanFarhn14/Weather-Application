@@ -1,16 +1,55 @@
-# weather_application
+# Weather Application
+## App Function
+- Make HTTP request from [OpenWeather](https://openweathermap.org/)
+- Storing and structure fetched API data in the application
+- Code Design
 
-A new Flutter project.
+## Environment Variables
 
-## Getting Started
+To run this project, you will need to add the following Extensions to your VS code
 
-This project is a starting point for a Flutter application.
+- `Pubspec Assist`
+- `Tabnine` (optional)
+- `json to dart model` by hirantha
 
-A few resources to get you started if this is your first Flutter project:
+## Dependencies
+1. Geolocator: Will get current lattitude and longitude
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```
+flutter pub add geolocator
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+2. Geocoding
+```
+flutter pub add geocoding
+```
+
+4. Sleek Circular Slider
+```
+flutter pub add sleek_circular_slider
+```
+
+5. http
+```
+flutter pub add http
+```
+
+6. GetX statemanager
+```
+flutter pub add get
+```
+
+7. intl
+```
+flutter pub add intl
+```
+
+8. flutter_screenutil
+```
+flutter pub add flutter_screenutil
+```
+
+9. figma_squircle
+```
+flutter pub add figma_squircle
+```
