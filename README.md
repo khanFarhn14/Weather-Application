@@ -1,8 +1,16 @@
 # Weather Application
-## App Function
+
+<p align="center">
+<img src="assets/Screenshot/Weather%20application%20presentaiton.png" width="700">
+</p>
+
+The project was guided by [Backslash Flutter](https://youtu.be/yZG_S3P7Ng4)
+
+## This Application
 - Make HTTP request from [OpenWeather](https://openweathermap.org/)
-- Storing and structure fetched API data in the application
+- Store and structure fetched API data in the application
 - Code Design
+- Used getX Framework
 
 ## Environment Variables
 
@@ -53,3 +61,10 @@ flutter pub add flutter_screenutil
 ```
 flutter pub add figma_squircle
 ```
+
+## Screenshot of Weather Application
+
+<p align="center">
+<img src="assets/Screenshot/Home%20Page.png" width="300">
+<img src="assets/Screenshot/Home%20Page%20Down.png" width="300">
+</p>
