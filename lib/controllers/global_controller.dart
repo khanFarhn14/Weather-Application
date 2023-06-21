@@ -1,7 +1,11 @@
+import 'dart:async';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:weather_application/api/fetch_weather.dart';
 import 'package:weather_application/model/weather_data.dart';
+import 'dart:io';
+import 'package:connectivity_plus/connectivity_plus.dart';
+
 
 class GlobalController extends GetxController{
   
@@ -10,26 +14,52 @@ class GlobalController extends GetxController{
   final RxDouble _lattitude = 0.0.obs;
   final RxDouble _longitude = 0.0.obs;
   final RxInt _currentIndex = 0.obs;
+  final RxBool _connectionStatus = true.obs;
+  final weatherData = WeatherData().obs;
   
   // functions
   RxBool checkLoading() => _isLoading;
+  RxBool checkConnectionStatus() => _connectionStatus;
   RxDouble getLattitude() => _lattitude;
   RxDouble getLongitude() => _longitude;
   WeatherData getWeatherData() => weatherData.value;
   RxInt getIndex() => _currentIndex;
 
-
-  final weatherData = WeatherData().obs;
+  Map _source = {ConnectivityResult.none: false};
+  final NetworkConnectivity _networkConnectivity = NetworkConnectivity.instance;
 
   @override
   void onInit() {
-    if(_isLoading.isTrue){
+    connectionStatus();
+
+    if(_isLoading.isTrue && _connectionStatus.isTrue){
       getLocation();
-    }else{
-      getIndex();
     }
     super.onInit();
   }
+
+  connectionStatus(){
+    _networkConnectivity.initialise();
+    _networkConnectivity.myStream.listen((source) {
+      _source = source;
+      // 1.
+      switch (_source.keys.toList()[0]) {
+        case ConnectivityResult.mobile:
+          _connectionStatus.value =
+              _source.values.toList()[0] ? true : false;
+          break;
+        case ConnectivityResult.wifi:
+          _connectionStatus.value =
+              _source.values.toList()[0] ? true : false;
+          break;
+        case ConnectivityResult.none:
+        default:
+          _connectionStatus.value = false;
+      }
+    }
+    );
+  }
+
 
   getLocation() async {
     bool isServiceEnabled;
@@ -71,4 +101,31 @@ class GlobalController extends GetxController{
     });
   }
 
+}
+
+class NetworkConnectivity {
+  NetworkConnectivity._();
+  static final _instance = NetworkConnectivity._();
+  static NetworkConnectivity get instance => _instance;
+  final _networkConnectivity = Connectivity();
+  final _controller = StreamController.broadcast();
+  Stream get myStream => _controller.stream;
+  void initialise() async {
+    ConnectivityResult result = await _networkConnectivity.checkConnectivity();
+    _checkStatus(result);
+    _networkConnectivity.onConnectivityChanged.listen((result) {
+      _checkStatus(result);
+    });
+  }
+  void _checkStatus(ConnectivityResult result) async {
+    bool isOnline = false;
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      isOnline = result.isNotEmpty && result[0].rawAddress.isNotEmpty;
+    } on SocketException catch (_) {
+      isOnline = false;
+    }
+    _controller.sink.add({result: isOnline});
+  }
+  void disposeStream() => _controller.close();
 }

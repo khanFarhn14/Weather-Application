@@ -6,7 +6,10 @@
 
 The project was guided by [Backslash Flutter](https://youtu.be/yZG_S3P7Ng4)
 
+As part of this project, I added a feature that checks the connection to the network as my personal contribution
+
 ## This Application
+- Check Network connection before sending HTTP request
 - Make HTTP request from [OpenWeather](https://openweathermap.org/)
 - Store and structure fetched API data in the application
 - Code Design
@@ -60,6 +63,16 @@ flutter pub add flutter_screenutil
 9. figma_squircle
 ```
 flutter pub add figma_squircle
+```
+
+10.  Internet Connection Checker
+```
+flutter pub add internet_connection_checker
+```
+
+10.  Connectivity Plus
+```
+flutter pub add connectivity_plus
 ```
 
 ## Screenshot of Weather Application

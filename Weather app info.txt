@@ -77,3 +77,6 @@ AndroidManifest.xml
 add one of the following two lines as direct children of the <manifest> tag
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+
+change minSdkVersion to 19 for connection status

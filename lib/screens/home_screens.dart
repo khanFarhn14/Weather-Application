@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:weather_application/controllers/global_controller.dart';
+import 'package:weather_application/screens/no_network_screen.dart';
 import 'package:weather_application/widgets/comfort_level.dart';
 import 'package:weather_application/widgets/current_weather_widget.dart';
 import 'package:weather_application/widgets/daily_weather_widget.dart';
@@ -26,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: dominant,
       body: SafeArea(
         child: Obx(
-          ()=> controller.checkLoading().isTrue ? 
+          ()=> controller.checkConnectionStatus().isFalse ? const NoNetwork(): controller.checkLoading().isTrue ? 
           const Center(child: CircularProgressIndicator()): 
           Padding(
             padding: EdgeInsets.fromLTRB(16.w, 0.h, 16.w, 12.h),
